@@ -9,7 +9,9 @@ import {
   Image,
   FlatList,
   Platform,
+  ScrollView,
 } from "react-native";
+import Colors from "../../constants/Colors";
 import { useSelector } from "react-redux";
 
 const ProductDetailScreen = (props) => {
@@ -20,9 +22,20 @@ const ProductDetailScreen = (props) => {
   const state = useSelector((state) => state.products);
 
   return (
-    <View style={styles.containerView}>
-      <Text style={styles.text}>{item.title}</Text>
-    </View>
+    <ScrollView style={styles.containerView}>
+      <Image source={{ uri: item.imageUrl }} style={styles.image} />
+
+      <View style={styles.actions}>
+        <Button
+          title="Add to Cart"
+          onPress={() => {}}
+          color={Colors.primaryColor}
+        />
+      </View>
+
+      <Text style={styles.text2}>${item.price.toFixed(2)}</Text>
+      <Text style={styles.text}>{item.description}</Text>
+    </ScrollView>
   );
 };
 
@@ -39,11 +52,26 @@ const styles = StyleSheet.create({
   containerView: {
     flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   text: {
     fontSize: 20,
+    marginHorizontal: 20,
+  },
+  text2: {
+    fontSize: 20,
+    color: "#888",
+    textAlign: "center",
+    marginVertical: 20,
+  },
+  image: {
+    width: "100%",
+    height: 300,
+  },
+  actions: {
+    alignItems: "center",
+    marginVertical: 20,
   },
 });
 
