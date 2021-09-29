@@ -11,6 +11,7 @@ import {
   Platform,
 } from "react-native";
 import { useSelector } from "react-redux";
+import ProductItem from "../../components/shop/ProductItem";
 
 const ProductsOverviewScreen = (props) => {
   const { navigation } = props;
@@ -19,9 +20,15 @@ const ProductsOverviewScreen = (props) => {
 
   const renderItem = ({ item }) => {
     return (
-      <View>
-        <Text>{item.title}</Text>
-      </View>
+      <ProductItem
+        item={item}
+        onViewDetails={() => {
+          navigation.navigate("ProductsDetails", {
+            item,
+          });
+        }}
+        onAddToCard={() => {}}
+      />
     );
   };
 
