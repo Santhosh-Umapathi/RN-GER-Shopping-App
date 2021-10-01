@@ -58,12 +58,14 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginHorizontal: 20,
+    fontFamily: "open-sans-bold",
   },
   text2: {
     fontSize: 20,
     color: "#888",
     textAlign: "center",
     marginVertical: 20,
+    fontFamily: "open-sans",
   },
   image: {
     width: "100%",

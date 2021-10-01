@@ -73,10 +73,12 @@ const styles = StyleSheet.create({
   text: {
     fontSize: 20,
     marginVertical: 5,
+    fontFamily: "open-sans-bold",
   },
   text2: {
     fontSize: 16,
     color: "#888",
+    fontFamily: "open-sans",
   },
   actions: {
     flexDirection: "row",
