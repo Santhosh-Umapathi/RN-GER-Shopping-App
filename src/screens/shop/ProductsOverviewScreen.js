@@ -10,13 +10,17 @@ import {
   FlatList,
   Platform,
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/shop/ProductItem";
+import * as cartActions from "../../store/actions/cart";
+
+import HeaderButton from "../../components/UI/HeaderButton";
 
 const ProductsOverviewScreen = (props) => {
   const { navigation } = props;
 
   const state = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
   const renderItem = ({ item }) => {
     return (
@@ -27,7 +31,9 @@ const ProductsOverviewScreen = (props) => {
             item,
           });
         }}
-        onAddToCard={() => {}}
+        onAddToCard={() => {
+          dispatch(cartActions.addToCart(item));
+        }}
       />
     );
   };
@@ -43,8 +49,18 @@ const ProductsOverviewScreen = (props) => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = {
-  headerTitle: "All Products",
+ProductsOverviewScreen.navigationOptions = (props) => {
+  const { navigation } = props;
+
+  return {
+    headerTitle: "All Products",
+    headerRight: (
+      <HeaderButton
+        iconName="ios-cart"
+        onPress={() => navigation.navigate("Cart")}
+      />
+    ),
+  };
 };
 
 const styles = StyleSheet.create({
