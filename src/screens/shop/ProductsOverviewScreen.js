@@ -54,6 +54,12 @@ ProductsOverviewScreen.navigationOptions = (props) => {
 
   return {
     headerTitle: "All Products",
+    headerLeft: (
+      <HeaderButton
+        iconName="ios-menu"
+        onPress={() => navigation.toggleDrawer()}
+      />
+    ),
     headerRight: (
       <HeaderButton
         iconName="ios-cart"

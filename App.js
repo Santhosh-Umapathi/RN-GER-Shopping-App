@@ -5,9 +5,10 @@ import { Provider } from "react-redux";
 import { combineReducers, createStore } from "redux";
 import ShopNavigator from "./src/navigation/ShopNavigator";
 import { composeWithDevTools } from "redux-devtools-extension";
-
+//Reducers
 import productReducers from "./src/store/reducers/products";
 import cartReducers from "./src/store/reducers/cart";
+import ordersReducers from "./src/store/reducers/orders";
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -26,6 +27,7 @@ export default function App() {
   const rootReducer = combineReducers({
     products: productReducers,
     cart: cartReducers,
+    orders: ordersReducers,
   });
 
   const store = createStore(rootReducer, composeWithDevTools());
