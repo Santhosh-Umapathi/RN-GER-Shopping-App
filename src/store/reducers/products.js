@@ -3,6 +3,7 @@ import Product from "../../model/product";
 import {
   CREATE_PRODUCT,
   DELETE_PRODUCT,
+  SET_PRODUCT,
   UPDATE_PRODUCT,
 } from "../actions/products";
 
@@ -26,10 +27,10 @@ export default (state = initialState, action) => {
       };
 
     case CREATE_PRODUCT:
-      const { title, description, image, price } = action.payload;
+      const { id, title, description, image, price } = action.payload;
 
       const createdProduct = new Product(
-        new Date().toString(),
+        id,
         "u1",
         title,
         image,
@@ -45,15 +46,15 @@ export default (state = initialState, action) => {
 
     case UPDATE_PRODUCT:
       const {
-        id,
+        id: uId,
         title: uTitle,
         description: uDescription,
         image: uImage,
       } = action.payload;
 
-      const index = state.userProducts.findIndex((item) => item.id === id);
+      const index = state.userProducts.findIndex((item) => item.id === uId);
       const updatedProduct = new Product(
-        id,
+        uId,
         state.userProducts[index].ownerId,
         uTitle,
         uImage,
@@ -65,10 +66,10 @@ export default (state = initialState, action) => {
       updatedUserProduct[index] = updatedProduct;
 
       const indexA = state.availableProducts.findIndex(
-        (item) => item.id === id
+        (item) => item.id === uId
       );
       const updatedAProduct = new Product(
-        id,
+        uId,
         state.availableProducts[indexA].ownerId,
         uTitle,
         uImage,
@@ -83,6 +84,14 @@ export default (state = initialState, action) => {
         ...state,
         availableProducts: updatedvailableProduct,
         userProducts: updatedUserProduct,
+      };
+
+    case SET_PRODUCT:
+      const loadedProducts = action.payload;
+      return {
+        ...state,
+        userProducts: loadedProducts.filter((item) => item.id !== productId),
+        availableProducts: loadedProducts,
       };
 
     default:

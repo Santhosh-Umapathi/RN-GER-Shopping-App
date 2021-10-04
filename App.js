@@ -2,7 +2,8 @@ import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import { combineReducers, createStore } from "redux";
+import { combineReducers, createStore, applyMiddleware } from "redux";
+import ReduxThunk from "redux-thunk";
 import ShopNavigator from "./src/navigation/ShopNavigator";
 import { composeWithDevTools } from "redux-devtools-extension";
 //Reducers
@@ -30,7 +31,10 @@ export default function App() {
     orders: ordersReducers,
   });
 
-  const store = createStore(rootReducer, composeWithDevTools());
+  const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(ReduxThunk))
+  );
 
   if (!fontLoaded) {
     return (

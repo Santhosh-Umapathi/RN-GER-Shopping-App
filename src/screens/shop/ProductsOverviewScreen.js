@@ -9,18 +9,49 @@ import {
   Image,
   FlatList,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import ProductItem from "../../components/shop/ProductItem";
 import * as cartActions from "../../store/actions/cart";
+import * as productActions from "../../store/actions/products";
 
 import HeaderButton from "../../components/UI/HeaderButton";
+import Colors from "../../constants/Colors";
 
 const ProductsOverviewScreen = (props) => {
   const { navigation } = props;
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState(false);
+
   const state = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
+  const loadProducts = async (params) => {
+    console.log("🚀 --- loadProducts --- loadProducts");
+
+    setIsError(false);
+    setIsLoading(true);
+    try {
+      await dispatch(productActions.setProduct());
+    } catch (error) {
+      setIsError(true);
+    }
+    setIsLoading(false);
+  };
+
+  useEffect(() => {
+    loadProducts();
+  }, [dispatch]);
+
+  useEffect(() => {
+    const focus = props.navigation.addListener("willFocus", loadProducts);
+
+    return () => {
+      focus.remove();
+    };
+  }, [loadProducts]);
 
   const renderItem = ({ item }) => {
     return (
@@ -51,6 +82,30 @@ const ProductsOverviewScreen = (props) => {
       </ProductItem>
     );
   };
+
+  if (isLoading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={Colors.primaryColor} />
+      </View>
+    );
+  }
+
+  if (!isLoading && state.availableProducts.length === 0) {
+    return (
+      <View style={styles.loading}>
+        <Text>No Products available</Text>
+      </View>
+    );
+  }
+
+  if (isError) {
+    return (
+      <View style={styles.loading}>
+        <Text>Something went wrong</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.containerView}>
@@ -92,6 +147,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
