@@ -26,15 +26,29 @@ const ProductsOverviewScreen = (props) => {
     return (
       <ProductItem
         item={item}
-        onViewDetails={() => {
+        onSelect={() => {
           navigation.navigate("ProductsDetails", {
             item,
           });
         }}
-        onAddToCard={() => {
-          dispatch(cartActions.addToCart(item));
-        }}
-      />
+      >
+        <Button
+          title="View Details"
+          onPress={() => {
+            navigation.navigate("ProductsDetails", {
+              item,
+            });
+          }}
+          color={Colors.primaryColor}
+        />
+        <Button
+          title="To Cart"
+          onPress={() => {
+            dispatch(cartActions.addToCart(item));
+          }}
+          color={Colors.primaryColor}
+        />
+      </ProductItem>
     );
   };
 
