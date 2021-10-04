@@ -13,6 +13,8 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import Colors from "../../constants/Colors";
 import CartItem from "../../components/shop/CartItem";
+import Card from "../../components/UI/Card";
+
 import * as cartActions from "../../store/actions/cart";
 import * as orderActions from "../../store/actions/orders";
 
@@ -48,7 +50,7 @@ const CartScreen = (props) => {
 
   return (
     <View style={styles.containerView}>
-      <View style={styles.summary}>
+      <Card style={styles.summary}>
         <Text style={styles.text}>
           Total:{" "}
           <Text style={styles.total}>
@@ -63,7 +65,7 @@ const CartScreen = (props) => {
           disabled={items.length <= 0}
           color={Colors.accentColor}
         />
-      </View>
+      </Card>
       <View>
         <Text style={styles.text}>Cart Items</Text>
         {items.length > 0 && (
@@ -98,13 +100,6 @@ const styles = StyleSheet.create({
     margin: 20,
     padding: 10,
     justifyContent: "space-between",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 5,
-    borderRadius: 10,
-    backgroundColor: "white",
   },
   text: {
     fontSize: 20,

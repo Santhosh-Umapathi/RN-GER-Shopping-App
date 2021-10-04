@@ -11,6 +11,8 @@ import {
   Platform,
 } from "react-native";
 import CartItem from "../../components/shop/CartItem";
+import Card from "../../components/UI/Card";
+
 import moment from "moment";
 
 const OrderItem = (props) => {
@@ -19,7 +21,7 @@ const OrderItem = (props) => {
   const [showDetails, setShowDetails] = useState(false);
 
   return (
-    <View style={styles.containerView}>
+    <Card style={styles.containerView}>
       <View style={styles.summary}>
         <Text style={styles.date}>
           {
@@ -40,20 +42,13 @@ const OrderItem = (props) => {
           })}
         </View>
       )}
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: "#fff",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 5,
-    borderRadius: 10,
     padding: 10,
     justifyContent: "center",
     alignItems: "center",

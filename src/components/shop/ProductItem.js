@@ -11,6 +11,7 @@ import {
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
+import Card from "../../components/UI/Card";
 
 const ProductItem = (props) => {
   const { navigation, item, onSelect, onAddToCard, children } = props;
@@ -19,7 +20,7 @@ const ProductItem = (props) => {
     Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;
 
   return (
-    <View style={styles.containerView}>
+    <Card style={styles.containerView}>
       <TouchableComponent onPress={onSelect} useForeground>
         <View>
           <Image source={{ uri: item.imageUrl }} style={styles.image} />
@@ -31,20 +32,13 @@ const ProductItem = (props) => {
           <View style={styles.actions}>{children}</View>
         </View>
       </TouchableComponent>
-    </View>
+    </Card>
   );
 };
 
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: "#fff",
-    shadowColor: "black",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
-    elevation: 5,
-    borderRadius: 10,
     overflow: Platform.OS === "android" ? "hidden" : "visible",
     height: 300,
     margin: 20,

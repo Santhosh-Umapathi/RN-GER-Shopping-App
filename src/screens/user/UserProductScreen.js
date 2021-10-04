@@ -9,6 +9,7 @@ import {
   Image,
   FlatList,
   Platform,
+  Alert,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -23,6 +24,25 @@ const UserProductScreen = (props) => {
 
   const state = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
+  const deleteHandler = (id) => {
+    Alert.alert("Are you sure", "Do you want to proceed", [
+      {
+        text: "No",
+        style: "cancel",
+        onPress: () => {
+          return;
+        },
+      },
+      {
+        text: "Yes",
+        style: "destructive",
+        onPress: () => {
+          dispatch(productsActions.deleteProduct(id));
+        },
+      },
+    ]);
+  };
 
   return (
     <View style={styles.containerView}>
@@ -52,9 +72,7 @@ const UserProductScreen = (props) => {
               />
               <Button
                 title="Delete"
-                onPress={() => {
-                  dispatch(productsActions.deleteProduct(item.id));
-                }}
+                onPress={() => deleteHandler(item.id)}
                 color={Colors.primaryColor}
               />
             </ProductItem>

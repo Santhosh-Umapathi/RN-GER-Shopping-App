@@ -23,7 +23,6 @@ const OrdersScreen = (props) => {
 
   return (
     <View style={styles.containerView}>
-      <Text style={styles.text}>OrdersScreen</Text>
       <FlatList
         data={state.orders}
         keyExtractor={(key) => key.id}
