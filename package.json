@@ -6,7 +6,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "eject": "expo eject",
-    "debug": "open \"rndebugger://set-debugger-loc?host=localhost&port=19000\""
+    "debug": "open \"rndebugger://set-debugger-loc?host=localhost&port=19000\"",
+    "git": "git config --local user.name 'Santhosh Umapathi' && git config --local user.email 'Santhosh.Professional1@gmail.com'"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.5",

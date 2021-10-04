@@ -31,13 +31,22 @@ const UserProductScreen = (props) => {
         keyExtractor={(key) => key.id}
         renderItem={({ item }) => {
           return (
-            <ProductItem item={item} onSelect={() => {}}>
+            <ProductItem
+              item={item}
+              onSelect={() => {
+                navigation.navigate("EditProducts", {
+                  item,
+                  title: "Edit Products",
+                });
+              }}
+            >
               <Button
                 title="Edit"
                 onPress={() => {
-                  //   navigation.navigate("ProductsDetails", {
-                  //     item,
-                  //   });
+                  navigation.navigate("EditProducts", {
+                    item,
+                    title: "Edit Products",
+                  });
                 }}
                 color={Colors.primaryColor}
               />
@@ -65,6 +74,16 @@ UserProductScreen.navigationOptions = (props) => {
       <HeaderButton
         iconName="ios-menu"
         onPress={() => navigation.toggleDrawer()}
+      />
+    ),
+    headerRight: (
+      <HeaderButton
+        iconName="ios-add"
+        onPress={() => {
+          navigation.navigate("EditProducts", {
+            title: "Add Products",
+          });
+        }}
       />
     ),
     headerTitle: "Your Products",
