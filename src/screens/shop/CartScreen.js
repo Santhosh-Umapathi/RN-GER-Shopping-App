@@ -38,6 +38,7 @@ const CartScreen = (props) => {
     return (
       <CartItem
         item={item}
+        deletable
         onPress={() => {
           dispatch(cartActions.removeFromCart(item.productId));
         }}

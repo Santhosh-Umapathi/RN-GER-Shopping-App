@@ -13,8 +13,7 @@ import {
 } from "react-native";
 
 const CartItem = (props) => {
-  const { navigation, onPress, item } = props;
-  console.log("🚀 --- CartItem --- item", item);
+  const { navigation, onPress, item, deletable } = props;
 
   return (
     <View style={styles.containerView}>
@@ -25,9 +24,11 @@ const CartItem = (props) => {
 
       <View style={styles.itemData}>
         <Text style={styles.amount}>{item.sum.toFixed(2)}</Text>
-        <TouchableOpacity onPress={onPress} style={styles.delete}>
-          <Ionicons name="ios-trash" size={23} color="red" />
-        </TouchableOpacity>
+        {deletable && (
+          <TouchableOpacity onPress={onPress} style={styles.delete}>
+            <Ionicons name="ios-trash" size={23} color="red" />
+          </TouchableOpacity>
+        )}
       </View>
     </View>
   );

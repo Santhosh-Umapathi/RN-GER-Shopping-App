@@ -1,3 +1,4 @@
+import React from "react";
 import { Platform } from "react-native";
 import {
   createStackNavigator,
@@ -10,6 +11,7 @@ import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
 import ProductDetailScreen from "../screens/shop/ProductDetailScreen";
 import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
+import { Ionicons } from "@expo/vector-icons";
 
 const defaultNavigationOptions = {
   headerStyle: {
@@ -30,6 +32,15 @@ const ProductsNavigator = createStackNavigator(
   },
   {
     defaultNavigationOptions,
+    navigationOptions: {
+      drawerIcon: (props) => (
+        <Ionicons
+          name={Platform.OS === "android" ? "md-cart" : "ios-cart"}
+          size={25}
+          color={props.tintColor}
+        />
+      ),
+    },
   }
 );
 
@@ -39,6 +50,15 @@ const OrdersNavigator = createStackNavigator(
   },
   {
     defaultNavigationOptions,
+    navigationOptions: {
+      drawerIcon: (props) => (
+        <Ionicons
+          name={Platform.OS === "android" ? "md-list" : "ios-list"}
+          size={25}
+          color={props.tintColor}
+        />
+      ),
+    },
   }
 );
 

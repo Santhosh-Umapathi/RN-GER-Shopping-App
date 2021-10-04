@@ -13,6 +13,7 @@ import {
 import * as orderActions from "../../store/actions/orders";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
+import OrderItem from "../../components/shop/OrderItem";
 
 const OrdersScreen = (props) => {
   const { navigation } = props;
@@ -27,7 +28,7 @@ const OrdersScreen = (props) => {
         data={state.orders}
         keyExtractor={(key) => key.id}
         renderItem={({ item }) => {
-          return <Text>{item.id}</Text>;
+          return <OrderItem item={item} />;
         }}
       />
     </View>
@@ -51,10 +52,11 @@ OrdersScreen.navigationOptions = (props) => {
 
 const styles = StyleSheet.create({
   containerView: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    width: "100%",
+    // alignItems: "center",
+    // justifyContent: "center",
   },
   text: {
     fontSize: 20,
