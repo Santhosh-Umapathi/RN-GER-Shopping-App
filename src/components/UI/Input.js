@@ -30,7 +30,7 @@ const Input = (props) => {
 
   const initialState = {
     value: props.initialValue || "",
-    isValid: props.initialIsValud || "",
+    isValid: props.initialIsValud || false,
     touched: false,
   };
 

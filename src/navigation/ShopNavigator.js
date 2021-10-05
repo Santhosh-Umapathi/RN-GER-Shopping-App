@@ -4,6 +4,7 @@ import {
   createStackNavigator,
   createAppContainer,
   createDrawerNavigator,
+  createSwitchNavigator,
 } from "react-navigation";
 import Colors from "../constants/Colors";
 //Screens
@@ -15,6 +16,7 @@ import UserProductScreen from "../screens/user/UserProductScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
 
 import { Ionicons } from "@expo/vector-icons";
+import AuthScreen from "../screens/user/AuthScreen";
 
 const defaultNavigationOptions = {
   headerStyle: {
@@ -97,4 +99,27 @@ const DrawerNavigator = createDrawerNavigator(
   }
 );
 
-export default createAppContainer(DrawerNavigator);
+const AuthNavigator = createStackNavigator(
+  {
+    Auth: AuthScreen,
+  },
+  {
+    defaultNavigationOptions,
+    // navigationOptions: {
+    //   drawerIcon: (props) => (
+    //     <Ionicons
+    //       name={Platform.OS === "android" ? "md-create" : "ios-create"}
+    //       size={25}
+    //       color={props.tintColor}
+    //     />
+    //   ),
+    // },
+  }
+);
+
+const MainNavigator = createSwitchNavigator({
+  Auth: AuthNavigator,
+  Shop: DrawerNavigator,
+});
+
+export default createAppContainer(MainNavigator);

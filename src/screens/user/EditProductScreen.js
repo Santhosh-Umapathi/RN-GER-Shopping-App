@@ -134,14 +134,6 @@ const EditProductScreen = (props) => {
     );
   }
 
-  // if (isError) {
-  //   return (
-  //     <View style={styles.loading}>
-  //       <Text>{isError}</Text>
-  //     </View>
-  //   );
-  // }
-
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -149,7 +141,12 @@ const EditProductScreen = (props) => {
       behavior="height"
     >
       <ScrollView style={styles.containerView}>
-        {isError && Alert.alert(isError)}
+        {isError &&
+          Alert.alert(isError, null, null, {
+            onDismiss: () => {
+              setIsError(null);
+            },
+          })}
         <Input
           id="title"
           keyboardType="default"
