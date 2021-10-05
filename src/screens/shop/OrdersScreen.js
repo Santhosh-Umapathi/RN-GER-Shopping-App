@@ -57,6 +57,14 @@ const OrdersScreen = (props) => {
     );
   }
 
+  if (state.orders.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>No Orders available</Text>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.containerView}>
       <FlatList

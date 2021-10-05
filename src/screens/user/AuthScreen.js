@@ -93,11 +93,11 @@ const AuthScreen = (props) => {
           )
         );
       }
+      navigation.navigate("Shop");
     } catch (error) {
       setIsError(error.message);
+      setIsLoading(false);
     }
-
-    setIsLoading(false);
   };
 
   const inputChangeHandler = useCallback(
@@ -132,13 +132,6 @@ const AuthScreen = (props) => {
         colors={["#ffedff", "#ffe3ff", "#ffe33f", "#333"]}
         style={styles.gradient}
       >
-        {/* {isError &&
-          Alert.alert(isError, null, null, {
-            onDismiss: () => {
-              setIsError(null);
-            },
-          })} */}
-
         <Card style={styles.card}>
           <ScrollView style={styles.container}>
             <Input

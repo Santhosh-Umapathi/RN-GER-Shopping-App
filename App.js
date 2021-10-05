@@ -10,6 +10,7 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import productReducers from "./src/store/reducers/products";
 import cartReducers from "./src/store/reducers/cart";
 import ordersReducers from "./src/store/reducers/orders";
+import authReducers from "./src/store/reducers/auth";
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
@@ -29,6 +30,7 @@ export default function App() {
     products: productReducers,
     cart: cartReducers,
     orders: ordersReducers,
+    auth: authReducers,
   });
 
   const store = createStore(

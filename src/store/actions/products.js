@@ -1,3 +1,4 @@
+import Firebase from "../../constants/Firebase";
 import Product from "../../model/product";
 
 export const DELETE_PRODUCT = "DELETE_PRODUCT";
@@ -5,35 +6,14 @@ export const CREATE_PRODUCT = "CREATE_PRODUCT";
 export const UPDATE_PRODUCT = "UPDATE_PRODUCT";
 export const SET_PRODUCT = "SET_PRODUCT";
 
-export const deleteProduct = (producId) => {
-  return async (dispatch) => {
-    try {
-      const deleteResponse = await fetch(
-        `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${producId}.json`,
-        {
-          method: "DELETE",
-        }
-      );
-
-      if (!deleteResponse.ok) {
-        throw new Error("Something went wrong");
-      }
-
-      dispatch({
-        type: DELETE_PRODUCT,
-        payload: producId,
-      });
-    } catch (error) {
-      throw error;
-    }
-  };
-};
-
 //Middleware
 export const createProduct = (title, description, image, price) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
+
     const response = await fetch(
-      "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products.json",
+      Firebase.URL_ENDPOINT + `/products.json?auth=${token}`,
       {
         method: "POST",
         headers: {
@@ -44,25 +24,35 @@ export const createProduct = (title, description, image, price) => {
           description,
           image,
           price,
+          ownerId: userId,
         }),
       }
     );
 
     const resData = await response.json();
-    console.log("resData", resData);
 
     dispatch({
       type: CREATE_PRODUCT,
-      payload: { id: resData.name, title, description, image, price },
+      payload: {
+        id: resData.name,
+        title,
+        description,
+        image,
+        price,
+        ownerId: userId,
+      },
     });
   };
 };
 
-export const setProduct = (title, description, image, price) => {
-  return async (dispatch) => {
+export const setProduct = () => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
+
     try {
       const response = await fetch(
-        "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products.json"
+        Firebase.URL_ENDPOINT + `/products.json?auth=${token}`
       );
 
       const resData = await response.json();
@@ -72,7 +62,7 @@ export const setProduct = (title, description, image, price) => {
         loadedProducts.push(
           new Product(
             key,
-            "u1",
+            resData[key].ownerId,
             resData[key].title,
             resData[key].image,
             resData[key].description,
@@ -82,24 +72,33 @@ export const setProduct = (title, description, image, price) => {
       }
 
       if (!response.ok) {
-        throw new Error("Something went wrong");
+        console.log("🚀 --- return --- response", response);
+        // throw new Error("Something went wrong");
       }
 
       dispatch({
         type: SET_PRODUCT,
-        payload: loadedProducts,
+        payload: {
+          loadedProducts,
+          userProducts: loadedProducts.filter(
+            (item) => item.ownerId === userId
+          ),
+        },
       });
     } catch (error) {
+      console.log("🚀 --- return --- error", error);
       throw error;
     }
   };
 };
 
 export const updateProduct = (id, title, description, image) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+
     try {
       const updateResponse = await fetch(
-        `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`,
+        Firebase.URL_ENDPOINT + `/products/${id}.json?auth=${token}`,
         {
           method: "PATCH",
           headers: {
@@ -120,6 +119,32 @@ export const updateProduct = (id, title, description, image) => {
       dispatch({
         type: UPDATE_PRODUCT,
         payload: { id, title, description, image },
+      });
+    } catch (error) {
+      throw error;
+    }
+  };
+};
+
+export const deleteProduct = (producId) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+
+    try {
+      const deleteResponse = await fetch(
+        Firebase.URL_ENDPOINT + `/products/${producId}.json?auth=${token}`,
+        {
+          method: "DELETE",
+        }
+      );
+
+      if (!deleteResponse.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      dispatch({
+        type: DELETE_PRODUCT,
+        payload: producId,
       });
     } catch (error) {
       throw error;

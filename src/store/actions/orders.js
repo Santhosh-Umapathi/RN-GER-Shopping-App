@@ -1,13 +1,17 @@
+import Firebase from "../../constants/Firebase";
 import Order from "../../model/orders";
 
 export const ADD_ORDER = "ADD_ORDER";
 export const SET_ORDER = "SET_ORDER";
 
 export const addToCart = (cartItems, totalAmount) => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
+
     const date = new Date();
     const response = await fetch(
-      "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/orders/u1.json",
+      Firebase.URL_ENDPOINT + `/orders/${userId}.json?auth=${token}`,
       {
         method: "POST",
         headers: {
@@ -35,10 +39,13 @@ export const addToCart = (cartItems, totalAmount) => {
 };
 
 export const setOrders = () => {
-  return async (dispatch) => {
+  return async (dispatch, getState) => {
+    const token = getState().auth.token;
+    const userId = getState().auth.userId;
+
     try {
       const response = await fetch(
-        "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/orders/u1.json"
+        Firebase.URL_ENDPOINT + `/orders/${userId}.json?auth=${token}`
       );
 
       const resData = await response.json();

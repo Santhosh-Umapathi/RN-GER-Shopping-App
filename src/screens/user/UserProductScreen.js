@@ -38,11 +38,22 @@ const UserProductScreen = (props) => {
         text: "Yes",
         style: "destructive",
         onPress: () => {
-          dispatch(productsActions.deleteProduct(id));
+          {
+            console.log("Delete pressed");
+            dispatch(productsActions.deleteProduct(id));
+          }
         },
       },
     ]);
   };
+
+  if (state.userProducts.length === 0) {
+    return (
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
+        <Text>No Products available</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.containerView}>

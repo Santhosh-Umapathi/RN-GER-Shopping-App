@@ -48,11 +48,14 @@ export const signUp = (email, password) => {
 
         throw new Error(errorMessage);
       }
+
+      dispatch({
+        type: SIGNUP,
+        payload: { token: resData.idToken, userId: resData.localId },
+      });
     } catch (error) {
       throw error;
     }
-
-    dispatch({ type: SIGNUP, payload: {} });
   };
 };
 
@@ -102,10 +105,13 @@ export const login = (email, password) => {
 
         throw new Error(errorMessage);
       }
+
+      dispatch({
+        type: LOGIN,
+        payload: { token: resData.idToken, userId: resData.localId },
+      });
     } catch (error) {
       throw error;
     }
-
-    dispatch({ type: LOGIN, payload: {} });
   };
 };
