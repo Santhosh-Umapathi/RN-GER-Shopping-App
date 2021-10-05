@@ -1,8 +1,70 @@
+import Order from "../../model/orders";
+
 export const ADD_ORDER = "ADD_ORDER";
+export const SET_ORDER = "SET_ORDER";
 
 export const addToCart = (cartItems, totalAmount) => {
-  return {
-    type: ADD_ORDER,
-    payload: { cartItems, totalAmount },
+  return async (dispatch) => {
+    const date = new Date();
+    const response = await fetch(
+      "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/orders/u1.json",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          cartItems,
+          totalAmount,
+          date: date.toISOString(),
+        }),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("Adding Order failed");
+    }
+
+    const resData = await response.json();
+
+    dispatch({
+      type: ADD_ORDER,
+      payload: { id: resData.name, cartItems, totalAmount, date },
+    });
+  };
+};
+
+export const setOrders = () => {
+  return async (dispatch) => {
+    try {
+      const response = await fetch(
+        "https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/orders/u1.json"
+      );
+
+      const resData = await response.json();
+
+      const loadedOrders = [];
+      for (let key in resData) {
+        loadedOrders.push(
+          new Order(
+            key,
+            resData[key].cartItems,
+            resData[key].totalAmount,
+            new Date(resData[key].date)
+          )
+        );
+      }
+
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      dispatch({
+        type: SET_ORDER,
+        payload: loadedOrders,
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };

@@ -1,5 +1,5 @@
 class Orders {
-  constructor(id, items, totalAmount, date) {
+  constructor(id = "", items = [], totalAmount = 0, date = new Date()) {
     this.id = id;
     this.items = items;
     this.totalAmount = totalAmount;

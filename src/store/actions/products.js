@@ -7,17 +7,25 @@ export const SET_PRODUCT = "SET_PRODUCT";
 
 export const deleteProduct = (producId) => {
   return async (dispatch) => {
-    await fetch(
-      `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${producId}.json`,
-      {
-        method: "DELETE",
-      }
-    );
+    try {
+      const deleteResponse = await fetch(
+        `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${producId}.json`,
+        {
+          method: "DELETE",
+        }
+      );
 
-    dispatch({
-      type: DELETE_PRODUCT,
-      payload: producId,
-    });
+      if (!deleteResponse.ok) {
+        throw new Error("Something went wrong");
+      }
+
+      dispatch({
+        type: DELETE_PRODUCT,
+        payload: producId,
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };
 
@@ -89,24 +97,32 @@ export const setProduct = (title, description, image, price) => {
 
 export const updateProduct = (id, title, description, image) => {
   return async (dispatch) => {
-    await fetch(
-      `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`,
-      {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          image,
-        }),
-      }
-    );
+    try {
+      const updateResponse = await fetch(
+        `https://rn-ger-shopping-app-default-rtdb.europe-west1.firebasedatabase.app/products/${id}.json`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            image,
+          }),
+        }
+      );
 
-    dispatch({
-      type: UPDATE_PRODUCT,
-      payload: { id, title, description, image },
-    });
+      if (!updateResponse.ok) {
+        throw new Error("Update failed");
+      }
+
+      dispatch({
+        type: UPDATE_PRODUCT,
+        payload: { id, title, description, image },
+      });
+    } catch (error) {
+      throw error;
+    }
   };
 };

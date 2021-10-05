@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
@@ -9,17 +9,53 @@ import {
   Image,
   FlatList,
   Platform,
+  ActivityIndicator,
 } from "react-native";
 import * as orderActions from "../../store/actions/orders";
 import { useDispatch, useSelector } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
 import OrderItem from "../../components/shop/OrderItem";
+import Colors from "../../constants/Colors";
 
 const OrdersScreen = (props) => {
   const { navigation } = props;
 
   const state = useSelector((state) => state.orders);
   const dispatch = useDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState();
+
+  const getOrders = useCallback(async () => {
+    setIsLoading(true);
+    setIsError(null);
+    try {
+      await dispatch(orderActions.setOrders());
+    } catch (error) {
+      setIsError(error.message);
+    }
+    setIsLoading(false);
+  }, []);
+
+  useEffect(() => {
+    getOrders();
+  }, [dispatch]);
+
+  if (isError) {
+    return (
+      <View style={styles.loading}>
+        <Text>{isError}</Text>
+      </View>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={Colors.primaryColor} />
+      </View>
+    );
+  }
 
   return (
     <View style={styles.containerView}>
@@ -59,6 +95,11 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 

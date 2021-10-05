@@ -24,25 +24,25 @@ const ProductsOverviewScreen = (props) => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState(false);
+  const [isRefreshing, setIsRefreshing] = useState(false);
 
   const state = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   const loadProducts = async (params) => {
-    console.log("🚀 --- loadProducts --- loadProducts");
-
     setIsError(false);
-    setIsLoading(true);
+    setIsRefreshing(true);
     try {
       await dispatch(productActions.setProduct());
     } catch (error) {
       setIsError(true);
     }
-    setIsLoading(false);
+    setIsRefreshing(false);
   };
 
   useEffect(() => {
-    loadProducts();
+    setIsLoading(true);
+    loadProducts().then(() => setIsLoading(false));
   }, [dispatch]);
 
   useEffect(() => {
@@ -113,6 +113,8 @@ const ProductsOverviewScreen = (props) => {
         data={state.availableProducts}
         keyExtractor={(key) => key.id}
         renderItem={renderItem}
+        onRefresh={loadProducts}
+        refreshing={isRefreshing}
       />
     </View>
   );

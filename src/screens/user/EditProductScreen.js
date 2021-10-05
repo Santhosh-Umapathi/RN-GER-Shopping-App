@@ -1,22 +1,17 @@
 import React, { useState, useEffect, useCallback, useReducer } from "react";
 import {
-  View,
-  Text,
-  TextInput,
   StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
   ScrollView,
   Alert,
-  KeyboardAvoidingViewBase,
   KeyboardAvoidingView,
+  ActivityIndicator,
+  View,
+  Text,
 } from "react-native";
 import { useDispatch } from "react-redux";
 import HeaderButton from "../../components/UI/HeaderButton";
 import Input from "../../components/UI/Input";
+import Colors from "../../constants/Colors";
 import * as actions from "../../store/actions/products";
 
 const formReducer = (state, action) => {
@@ -53,6 +48,9 @@ const EditProductScreen = (props) => {
   const item = navigation.getParam("item");
   const dispatch = useDispatch();
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [isError, setIsError] = useState();
+
   //Validations
   const initialState = {
     inputValues: {
@@ -72,31 +70,40 @@ const EditProductScreen = (props) => {
 
   const [formState, formDispatch] = useReducer(formReducer, initialState);
 
-  const submitHandler = useCallback(() => {
+  const submitHandler = useCallback(async () => {
+    setIsLoading(true);
+    setIsError(null);
     if (!formState.formIsValid) {
       Alert.alert("Form is not completed");
       return;
     }
-    if (item) {
-      dispatch(
-        actions.updateProduct(
-          item.id,
-          formState.inputValues.title,
-          formState.inputValues.description,
-          formState.inputValues.image
-        )
-      );
-    } else {
-      dispatch(
-        actions.createProduct(
-          formState.inputValues.title,
-          formState.inputValues.description,
-          formState.inputValues.image,
-          +formState.inputValues.price
-        )
-      );
+
+    try {
+      if (item) {
+        await dispatch(
+          actions.updateProduct(
+            item.id,
+            formState.inputValues.title,
+            formState.inputValues.description,
+            formState.inputValues.image
+          )
+        );
+      } else {
+        await dispatch(
+          actions.createProduct(
+            formState.inputValues.title,
+            formState.inputValues.description,
+            formState.inputValues.image,
+            +formState.inputValues.price
+          )
+        );
+      }
+      navigation.goBack();
+    } catch (error) {
+      setIsError(error.message);
     }
-    navigation.goBack();
+
+    setIsLoading(false);
   }, [formState]);
 
   useEffect(() => {
@@ -105,12 +112,6 @@ const EditProductScreen = (props) => {
 
   const inputChangeHandler = useCallback(
     (key, inputValue, inputValidity) => {
-      console.log(
-        "🚀 --- EditProductScreen --- key, inputValue, inputValidity",
-        key,
-        inputValue,
-        inputValidity
-      );
       // let isValid = false;
       // if (text.trim().length === 0) {
       //   isValid = false;
@@ -125,6 +126,22 @@ const EditProductScreen = (props) => {
     [formState]
   );
 
+  if (isLoading) {
+    return (
+      <View style={styles.loading}>
+        <ActivityIndicator size="large" color={Colors.primaryColor} />
+      </View>
+    );
+  }
+
+  // if (isError) {
+  //   return (
+  //     <View style={styles.loading}>
+  //       <Text>{isError}</Text>
+  //     </View>
+  //   );
+  // }
+
   return (
     <KeyboardAvoidingView
       style={{ flex: 1 }}
@@ -132,6 +149,7 @@ const EditProductScreen = (props) => {
       behavior="height"
     >
       <ScrollView style={styles.containerView}>
+        {isError && Alert.alert(isError)}
         <Input
           id="title"
           keyboardType="default"
@@ -214,6 +232,11 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     margin: 20,
     marginVertical: 40,
+  },
+  loading: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
 
