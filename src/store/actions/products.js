@@ -72,8 +72,8 @@ export const setProduct = () => {
       }
 
       if (!response.ok) {
-        console.log("🚀 --- return --- response", response);
-        // throw new Error("Something went wrong");
+        // console.log("🚀 --- return --- response", response);
+        throw new Error("Something went wrong");
       }
 
       dispatch({
@@ -86,7 +86,7 @@ export const setProduct = () => {
         },
       });
     } catch (error) {
-      console.log("🚀 --- return --- error", error);
+      // console.log("🚀 --- return --- error", error);
       throw error;
     }
   };

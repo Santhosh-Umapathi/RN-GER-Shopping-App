@@ -1,16 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
-  Alert,
-} from "react-native";
+import React from "react";
+import { View, Text, StyleSheet, Button, FlatList, Alert } from "react-native";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -39,7 +28,6 @@ const UserProductScreen = (props) => {
         style: "destructive",
         onPress: () => {
           {
-            console.log("Delete pressed");
             dispatch(productsActions.deleteProduct(id));
           }
         },

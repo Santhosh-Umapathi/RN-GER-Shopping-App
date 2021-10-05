@@ -1,10 +1,7 @@
-import { StatusBar } from "expo-status-bar";
 import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
-import ShopNavigator from "./src/navigation/ShopNavigator";
 import { composeWithDevTools } from "redux-devtools-extension";
 //Reducers
 import productReducers from "./src/store/reducers/products";
@@ -14,6 +11,7 @@ import authReducers from "./src/store/reducers/auth";
 
 import * as Font from "expo-font";
 import AppLoading from "expo-app-loading";
+import NavigationContainer from "./src/navigation/NavigationContainer";
 
 //Loading fonts
 const fetchFonts = () => {
@@ -50,16 +48,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <ShopNavigator />
+      <NavigationContainer />
     </Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});

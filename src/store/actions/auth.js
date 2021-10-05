@@ -1,7 +1,37 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import Firebase from "../../constants/Firebase";
 
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
+export const AUTHENTICATE = "AUTHENTICATE";
+export const LOGOUT = "LOGOUT";
+
+let isTimerInitialized;
+
+export const authenticate = (userId, token, expTime) => {
+  return (dispatch) => {
+    dispatch(timer(expTime));
+    dispatch({ type: AUTHENTICATE, payload: { userId, token } });
+  };
+};
+
+export const logout = () => {
+  AsyncStorage.removeItem("userData");
+  clearTimer();
+  return { type: LOGOUT };
+};
+
+const timer = (expTime) => {
+  return (dispatch) => {
+    isTimerInitialized = setTimeout(() => {
+      dispatch(logout());
+    }, expTime); // / 1000 =>fake auto logout timer
+  };
+};
+
+const clearTimer = () => {
+  isTimerInitialized && clearTimeout(isTimerInitialized);
+};
 
 export const signUp = (email, password) => {
   return async (dispatch) => {
@@ -49,10 +79,24 @@ export const signUp = (email, password) => {
         throw new Error(errorMessage);
       }
 
-      dispatch({
-        type: SIGNUP,
-        payload: { token: resData.idToken, userId: resData.localId },
-      });
+      //or
+      // dispatch({
+      //   type: SIGNUP,
+      //   payload: { token: resData.idToken, userId: resData.localId },
+      // });
+
+      dispatch(
+        authenticate(
+          resData.localId,
+          resData.idToken,
+          parseInt(resData.expiresIn) * 1000
+        )
+      );
+      const expirationDate = new Date(
+        new Date().getTime() + parseInt(resData.expiresIn) * 1000
+      );
+
+      saveDataToStorage(resData.idToken, resData.localId, expirationDate);
     } catch (error) {
       throw error;
     }
@@ -106,12 +150,32 @@ export const login = (email, password) => {
         throw new Error(errorMessage);
       }
 
-      dispatch({
-        type: LOGIN,
-        payload: { token: resData.idToken, userId: resData.localId },
-      });
+      // dispatch({
+      //   type: LOGIN,
+      //   payload: { token: resData.idToken, userId: resData.localId },
+      // });
+      //or
+      dispatch(
+        authenticate(
+          resData.localId,
+          resData.idToken,
+          parseInt(resData.expiresIn) * 1000
+        )
+      );
+      const expirationDate = new Date(
+        new Date().getTime() + parseInt(resData.expiresIn) * 1000
+      );
+
+      saveDataToStorage(resData.idToken, resData.localId, expirationDate);
     } catch (error) {
       throw error;
     }
   };
+};
+
+const saveDataToStorage = (token, userId, expirationDate) => {
+  AsyncStorage.setItem(
+    "userData",
+    JSON.stringify({ userId, token, expiryDate: expirationDate.toISOString() })
+  );
 };

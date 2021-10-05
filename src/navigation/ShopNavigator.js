@@ -1,10 +1,11 @@
 import React from "react";
-import { Platform } from "react-native";
+import { Platform, SafeAreaView, Button, View } from "react-native";
 import {
   createStackNavigator,
   createAppContainer,
   createDrawerNavigator,
   createSwitchNavigator,
+  DrawerItems,
 } from "react-navigation";
 import Colors from "../constants/Colors";
 //Screens
@@ -14,9 +15,12 @@ import CartScreen from "../screens/shop/CartScreen";
 import OrdersScreen from "../screens/shop/OrdersScreen";
 import UserProductScreen from "../screens/user/UserProductScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
+import SplashScreen from "../screens/SplashScreen";
 
 import { Ionicons } from "@expo/vector-icons";
 import AuthScreen from "../screens/user/AuthScreen";
+import { useDispatch } from "react-redux";
+import * as authActions from "../store/actions/auth";
 
 const defaultNavigationOptions = {
   headerStyle: {
@@ -96,6 +100,26 @@ const DrawerNavigator = createDrawerNavigator(
     contentOptions: {
       activeTintColor: Colors.primaryColor,
     },
+    contentComponent: (props) => {
+      const { navigation } = props;
+      const dispatch = useDispatch();
+
+      return (
+        <View style={{ flex: 1, padding: 20 }}>
+          <SafeAreaView>
+            <DrawerItems {...props} />
+            <Button
+              title="Logout"
+              color={Colors.primaryColor}
+              onPress={() => {
+                dispatch(authActions.logout);
+                // navigation.navigate("Auth");
+              }}
+            />
+          </SafeAreaView>
+        </View>
+      );
+    },
   }
 );
 
@@ -118,6 +142,7 @@ const AuthNavigator = createStackNavigator(
 );
 
 const MainNavigator = createSwitchNavigator({
+  Splash: SplashScreen,
   Auth: AuthNavigator,
   Shop: DrawerNavigator,
 });
