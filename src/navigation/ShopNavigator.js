@@ -111,7 +111,7 @@ const DrawerNavigator = createDrawerNavigator(
             <Button
               title="Logout"
               color={Colors.primaryColor}
-              onPress={() => dispatch(authActions.logout)}
+              onPress={() => dispatch(authActions.logout())}
             />
           </SafeAreaView>
         </View>
