@@ -1,19 +1,9 @@
+import React from "react";
+import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
-} from "react-native";
 
 const CartItem = (props) => {
-  const { navigation, onPress, item, deletable } = props;
+  const { onPress, item, deletable } = props;
 
   return (
     <View style={styles.containerView}>

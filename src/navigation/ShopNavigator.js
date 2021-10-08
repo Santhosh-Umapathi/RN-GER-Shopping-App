@@ -1,5 +1,6 @@
 import React from "react";
 import { Platform, SafeAreaView, Button, View } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
 import {
   createStackNavigator,
   createAppContainer,
@@ -7,6 +8,7 @@ import {
   createSwitchNavigator,
   DrawerItems,
 } from "react-navigation";
+//Constants
 import Colors from "../constants/Colors";
 //Screens
 import ProductsOverviewScreen from "../screens/shop/ProductsOverviewScreen";
@@ -16,9 +18,8 @@ import OrdersScreen from "../screens/shop/OrdersScreen";
 import UserProductScreen from "../screens/user/UserProductScreen";
 import EditProductScreen from "../screens/user/EditProductScreen";
 import SplashScreen from "../screens/SplashScreen";
-
-import { Ionicons } from "@expo/vector-icons";
 import AuthScreen from "../screens/user/AuthScreen";
+//Redux
 import { useDispatch } from "react-redux";
 import * as authActions from "../store/actions/auth";
 
@@ -101,7 +102,6 @@ const DrawerNavigator = createDrawerNavigator(
       activeTintColor: Colors.primaryColor,
     },
     contentComponent: (props) => {
-      const { navigation } = props;
       const dispatch = useDispatch();
 
       return (
@@ -111,10 +111,7 @@ const DrawerNavigator = createDrawerNavigator(
             <Button
               title="Logout"
               color={Colors.primaryColor}
-              onPress={() => {
-                dispatch(authActions.logout);
-                // navigation.navigate("Auth");
-              }}
+              onPress={() => dispatch(authActions.logout)}
             />
           </SafeAreaView>
         </View>
@@ -129,15 +126,6 @@ const AuthNavigator = createStackNavigator(
   },
   {
     defaultNavigationOptions,
-    // navigationOptions: {
-    //   drawerIcon: (props) => (
-    //     <Ionicons
-    //       name={Platform.OS === "android" ? "md-create" : "ios-create"}
-    //       size={25}
-    //       color={props.tintColor}
-    //     />
-    //   ),
-    // },
   }
 );
 

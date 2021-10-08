@@ -1,20 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
   TouchableOpacity,
-  Button,
   Image,
-  FlatList,
   Platform,
   TouchableNativeFeedback,
 } from "react-native";
+//Components
 import Card from "../../components/UI/Card";
 
 const ProductItem = (props) => {
-  const { navigation, item, onSelect, onAddToCard, children } = props;
+  const { item, onSelect, children } = props;
 
   const TouchableComponent =
     Platform.OS === "android" ? TouchableNativeFeedback : TouchableOpacity;

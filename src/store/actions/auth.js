@@ -1,6 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
+//Constants
 import Firebase from "../../constants/Firebase";
-
+//Types
 export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const AUTHENTICATE = "AUTHENTICATE";
@@ -127,7 +128,6 @@ export const login = (email, password) => {
 
       if (!response.ok) {
         const errorId = resData.error.message;
-        console.log("🚀 --- return --- errorId", errorId);
 
         if (errorId === "EMAIL_NOT_FOUND") {
           errorMessage = "This email is not found";

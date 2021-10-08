@@ -1,25 +1,21 @@
 import React, { useState, useEffect, useReducer, useCallback } from "react";
 import {
   View,
-  Text,
-  TextInput,
   StyleSheet,
-  TouchableOpacity,
   Button,
-  Image,
-  FlatList,
-  Platform,
   ScrollView,
   KeyboardAvoidingView,
   ActivityIndicator,
   Alert,
 } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+//Components
 import Card from "../../components/UI/Card";
 import Input from "../../components/UI/Input";
+//Constants
 import Colors from "../../constants/Colors";
-import { LinearGradient } from "expo-linear-gradient";
+//Redux
 import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 import * as authActions from "../../store/actions/auth";
 
 const formReducer = (state, action) => {
@@ -51,7 +47,6 @@ const AuthScreen = (props) => {
   const { navigation } = props;
 
   const dispatch = useDispatch();
-  const state = useSelector((state) => state);
 
   const [isSignUp, setIsSignUp] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -129,7 +124,7 @@ const AuthScreen = (props) => {
       style={{ flex: 1 }}
     >
       <LinearGradient
-        colors={["#ffedff", "#ffe3ff", "#ffe33f", "#333"]}
+        colors={[Colors.accentColor, Colors.primaryColor]}
         style={styles.gradient}
       >
         <Card style={styles.card}>
@@ -149,7 +144,6 @@ const AuthScreen = (props) => {
             <Input
               id="password"
               label="Password"
-              //   keyboardType="password"
               secureTextEntry
               required
               minLength={5}
@@ -169,9 +163,7 @@ const AuthScreen = (props) => {
             <View style={styles.button}>
               <Button
                 title={isSignUp ? "Go to Login" : "Go to Signup"}
-                onPress={() => {
-                  setIsSignUp(!isSignUp);
-                }}
+                onPress={() => setIsSignUp(!isSignUp)}
                 color={Colors.accentColor}
               />
             </View>
@@ -182,20 +174,13 @@ const AuthScreen = (props) => {
   );
 };
 
-AuthScreen.navigationOptions = (props) => {
-  const { navigation } = props;
-  //   const item = navigation.getParam("item");
-
-  return {
-    headerTitle: "Authenticate",
-  };
+AuthScreen.navigationOptions = {
+  headerTitle: "Authenticate",
 };
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   card: {
     padding: 20,

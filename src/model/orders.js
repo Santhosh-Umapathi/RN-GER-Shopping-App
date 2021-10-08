@@ -1,4 +1,4 @@
-class Orders {
+export default class Orders {
   constructor(id = "", items = [], totalAmount = 0, date = new Date()) {
     this.id = id;
     this.items = items;
@@ -17,5 +17,3 @@ class Orders {
 
 //   })
 // };
-
-export default Orders;

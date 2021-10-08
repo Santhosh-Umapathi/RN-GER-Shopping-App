@@ -1,22 +1,12 @@
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
-} from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Button } from "react-native";
+import moment from "moment";
+//Components
 import CartItem from "../../components/shop/CartItem";
 import Card from "../../components/UI/Card";
 
-import moment from "moment";
-
 const OrderItem = (props) => {
-  const { navigation, item } = props;
+  const { item } = props;
 
   const [showDetails, setShowDetails] = useState(false);
 

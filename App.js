@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import * as Font from "expo-font";
+import AppLoading from "expo-app-loading";
+//Redux
 import { Provider } from "react-redux";
 import { combineReducers, createStore, applyMiddleware } from "redux";
 import ReduxThunk from "redux-thunk";
@@ -8,10 +11,10 @@ import productReducers from "./src/store/reducers/products";
 import cartReducers from "./src/store/reducers/cart";
 import ordersReducers from "./src/store/reducers/orders";
 import authReducers from "./src/store/reducers/auth";
-
-import * as Font from "expo-font";
-import AppLoading from "expo-app-loading";
+//Navigation
 import NavigationContainer from "./src/navigation/NavigationContainer";
+//Screens
+import SplashScreen from "./SplashScreen";
 
 //Loading fonts
 const fetchFonts = () => {
@@ -23,6 +26,13 @@ const fetchFonts = () => {
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShowSplash(false);
+    }, 2000);
+  }, []);
 
   const rootReducer = combineReducers({
     products: productReducers,
@@ -48,7 +58,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      <NavigationContainer />
+      {showSplash ? <SplashScreen /> : <NavigationContainer />}
     </Provider>
   );
 }

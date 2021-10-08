@@ -1,10 +1,11 @@
-import Product from "../../model/product";
 import {
   CREATE_PRODUCT,
   DELETE_PRODUCT,
   SET_PRODUCT,
   UPDATE_PRODUCT,
 } from "../actions/products";
+//Model
+import Product from "../../model/product";
 
 const initialState = {
   availableProducts: [],

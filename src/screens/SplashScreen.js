@@ -1,18 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import React, { useState, useEffect } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
-} from "react-native";
+import React, { useEffect } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
 import { useDispatch } from "react-redux";
-import Card from "../components/UI/Card";
 import * as authActions from "../store/actions/auth";
 
 const SplashScreen = (props) => {
@@ -57,15 +46,19 @@ const SplashScreen = (props) => {
 
   return (
     <View style={styles.containerView}>
-      {/* <Card style={styles.card}> */}
       <Image
         source={{
-          uri: "https://i.pinimg.com/originals/19/7e/8f/197e8fae2c1dc45c3611080e71cc3408.gif",
+          uri: "https://cdn.dribbble.com/users/2046015/screenshots/5973727/06-loader_telega.gif",
         }}
-        resizeMode="contain"
-        style={styles.image}
+        style={{
+          width: "60%",
+          height: "30%",
+          marginLeft: -40,
+          marginBottom: 10,
+        }}
+        resizeMode="cover"
       />
-      {/* </Card> */}
+      <Text style={styles.text}>Shopping</Text>
     </View>
   );
 };
@@ -73,20 +66,15 @@ const SplashScreen = (props) => {
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: Colors.splash,
     alignItems: "center",
     justifyContent: "center",
   },
-  image: {
-    width: "100%",
-    height: "100%",
+  text: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: Colors.accentColor,
   },
-  //   card: {
-  //     width: "80%",
-  //     height: "40%",
-  //     justifyContent: "center",
-  //     alignItems: "center",
-  //   },
 });
 
 export default SplashScreen;

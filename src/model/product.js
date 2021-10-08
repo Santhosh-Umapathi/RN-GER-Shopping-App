@@ -1,4 +1,4 @@
-class Product {
+export default class Product {
   constructor(
     id = "",
     ownerId = "",
@@ -15,5 +15,3 @@ class Product {
     this.price = price;
   }
 }
-
-export default Product;

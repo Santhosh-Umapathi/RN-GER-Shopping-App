@@ -1,15 +1,5 @@
-import React, { useState, useEffect, useReducer } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
-  FlatList,
-  Platform,
-} from "react-native";
+import React, { useEffect, useReducer } from "react";
+import { View, Text, TextInput, StyleSheet } from "react-native";
 
 const inputReducer = (state, action) => {
   switch (action.type) {

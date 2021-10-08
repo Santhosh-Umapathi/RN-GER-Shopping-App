@@ -1,11 +1,12 @@
 import React from "react";
 import { View, Text, StyleSheet, Button, FlatList, Alert } from "react-native";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
-
+//Components
 import ProductItem from "../../components/shop/ProductItem";
 import HeaderButton from "../../components/UI/HeaderButton";
+//Constants
 import Colors from "../../constants/Colors";
+//Redux
+import { useSelector, useDispatch } from "react-redux";
 import * as productsActions from "../../store/actions/products";
 
 const UserProductScreen = (props) => {
@@ -26,11 +27,7 @@ const UserProductScreen = (props) => {
       {
         text: "Yes",
         style: "destructive",
-        onPress: () => {
-          {
-            dispatch(productsActions.deleteProduct(id));
-          }
-        },
+        onPress: () => dispatch(productsActions.deleteProduct(id)),
       },
     ]);
   };
@@ -84,7 +81,6 @@ const UserProductScreen = (props) => {
 
 UserProductScreen.navigationOptions = (props) => {
   const { navigation } = props;
-  // const item = navigation.getParam("item");
 
   return {
     headerLeft: (

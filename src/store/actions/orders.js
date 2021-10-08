@@ -1,4 +1,6 @@
+//Constants
 import Firebase from "../../constants/Firebase";
+//Model
 import Order from "../../model/orders";
 
 export const ADD_ORDER = "ADD_ORDER";

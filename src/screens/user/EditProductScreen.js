@@ -6,12 +6,14 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
   View,
-  Text,
 } from "react-native";
-import { useDispatch } from "react-redux";
+//Components
 import HeaderButton from "../../components/UI/HeaderButton";
 import Input from "../../components/UI/Input";
+//Constants
 import Colors from "../../constants/Colors";
+//Redux
+import { useDispatch } from "react-redux";
 import * as actions from "../../store/actions/products";
 
 const formReducer = (state, action) => {
@@ -143,9 +145,7 @@ const EditProductScreen = (props) => {
       <ScrollView style={styles.containerView}>
         {isError &&
           Alert.alert(isError, null, null, {
-            onDismiss: () => {
-              setIsError(null);
-            },
+            onDismiss: () => setIsError(null),
           })}
         <Input
           id="title"

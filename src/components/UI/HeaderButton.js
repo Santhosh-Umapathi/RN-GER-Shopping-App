@@ -1,7 +1,7 @@
-import { Ionicons } from "@expo/vector-icons";
-
 import React from "react";
 import { Platform } from "react-native";
+import { Ionicons } from "@expo/vector-icons";
+//Constants
 import Colors from "../../constants/Colors";
 
 const HeaderButton = ({ onPress = () => {}, iconName = "" }) => {

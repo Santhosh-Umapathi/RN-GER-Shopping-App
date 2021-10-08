@@ -1,6 +1,6 @@
 import Product from "../model/product";
 
-const PRODUCTS = [
+export default PRODUCTS = [
   new Product(
     "p1",
     "u1",
@@ -50,5 +50,3 @@ const PRODUCTS = [
     5.49
   ),
 ];
-
-export default PRODUCTS;
