@@ -78,12 +78,11 @@ const OrdersScreen = (props) => {
   );
 };
 
-OrdersScreen.navigationOptions = (props) => {
+export const screenOptions = (props) => {
   const { navigation } = props;
-  // const item = navigation.getParam("item");
 
   return {
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButton
         iconName="ios-menu"
         onPress={() => navigation.toggleDrawer()}
@@ -95,11 +94,8 @@ OrdersScreen.navigationOptions = (props) => {
 
 const styles = StyleSheet.create({
   containerView: {
-    // flex: 1,
     backgroundColor: "#fff",
     width: "100%",
-    // alignItems: "center",
-    // justifyContent: "center",
   },
   text: {
     fontSize: 20,

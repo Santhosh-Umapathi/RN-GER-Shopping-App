@@ -49,7 +49,7 @@ const ProductsOverviewScreen = (props) => {
     const focus = props.navigation.addListener("willFocus", loadProducts);
 
     return () => {
-      focus.remove();
+      // focus.remove();
     };
   }, [loadProducts]);
 
@@ -120,18 +120,18 @@ const ProductsOverviewScreen = (props) => {
   );
 };
 
-ProductsOverviewScreen.navigationOptions = (props) => {
+export const screenOptions = (props) => {
   const { navigation } = props;
 
   return {
     headerTitle: "All Products",
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButton
         iconName="ios-menu"
         onPress={() => navigation.toggleDrawer()}
       />
     ),
-    headerRight: (
+    headerRight: () => (
       <HeaderButton
         iconName="ios-cart"
         onPress={() => navigation.navigate("Cart")}

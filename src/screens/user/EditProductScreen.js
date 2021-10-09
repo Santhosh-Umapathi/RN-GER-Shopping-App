@@ -206,14 +206,14 @@ const EditProductScreen = (props) => {
   );
 };
 
-EditProductScreen.navigationOptions = (props) => {
+export const screenOptions = (props) => {
   const { navigation } = props;
   const title = navigation.getParam("title");
   const item = navigation.getParam("item");
   const submit = navigation.getParam("submit");
 
   return {
-    headerRight: (
+    headerRight: () => (
       <HeaderButton
         iconName={item ? "ios-save" : "ios-checkmark"}
         onPress={submit}

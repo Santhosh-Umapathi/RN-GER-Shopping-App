@@ -79,17 +79,17 @@ const UserProductScreen = (props) => {
   );
 };
 
-UserProductScreen.navigationOptions = (props) => {
+export const screenOptions = (props) => {
   const { navigation } = props;
 
   return {
-    headerLeft: (
+    headerLeft: () => (
       <HeaderButton
         iconName="ios-menu"
         onPress={() => navigation.toggleDrawer()}
       />
     ),
-    headerRight: (
+    headerRight: () => (
       <HeaderButton
         iconName="ios-add"
         onPress={() => {

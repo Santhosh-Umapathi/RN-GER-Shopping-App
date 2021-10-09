@@ -43,7 +43,7 @@ const ProductDetailScreen = (props) => {
   );
 };
 
-ProductDetailScreen.navigationOptions = (props) => {
+export const screenOptions = (props) => {
   const { navigation } = props;
   const item = navigation.getParam("item");
 

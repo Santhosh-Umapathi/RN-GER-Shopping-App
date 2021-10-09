@@ -91,10 +91,7 @@ const CartScreen = (props) => {
   );
 };
 
-CartScreen.navigationOptions = (props) => {
-  const { navigation } = props;
-  // const item = navigation.getParam("item");
-
+export const screenOptions = (props) => {
   return {
     headerTitle: "Your Cart",
   };

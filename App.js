@@ -12,7 +12,7 @@ import cartReducers from "./src/store/reducers/cart";
 import ordersReducers from "./src/store/reducers/orders";
 import authReducers from "./src/store/reducers/auth";
 //Navigation
-import NavigationContainer from "./src/navigation/NavigationContainer";
+import AppNavigator from "./src/navigation/AppNavigator";
 //Screens
 import SplashScreen from "./SplashScreen";
 
@@ -58,7 +58,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      {showSplash ? <SplashScreen /> : <NavigationContainer />}
+      {showSplash ? <SplashScreen /> : <AppNavigator />}
     </Provider>
   );
 }
