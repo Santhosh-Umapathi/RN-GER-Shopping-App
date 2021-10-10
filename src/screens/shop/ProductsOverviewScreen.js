@@ -1,22 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
-  TouchableOpacity,
   Button,
-  Image,
   FlatList,
-  Platform,
   ActivityIndicator,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useFocusEffect } from "@react-navigation/native";
+//Components
 import ProductItem from "../../components/shop/ProductItem";
+import HeaderButton from "../../components/UI/HeaderButton";
+//Redux
+import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../store/actions/cart";
 import * as productActions from "../../store/actions/products";
-
-import HeaderButton from "../../components/UI/HeaderButton";
+//Constants
 import Colors from "../../constants/Colors";
 
 const ProductsOverviewScreen = (props) => {
@@ -28,6 +27,14 @@ const ProductsOverviewScreen = (props) => {
 
   const state = useSelector((state) => state.products);
   const dispatch = useDispatch();
+
+  useFocusEffect(
+    useCallback(() => {
+      const unsubscribe = loadProducts;
+
+      return () => unsubscribe();
+    }, [loadProducts])
+  );
 
   const loadProducts = async (params) => {
     setIsError(false);
@@ -44,14 +51,6 @@ const ProductsOverviewScreen = (props) => {
     setIsLoading(true);
     loadProducts().then(() => setIsLoading(false));
   }, [dispatch]);
-
-  useEffect(() => {
-    const unsubscribe = props.navigation.addListener("focus", loadProducts);
-
-    return () => {
-      unsubscribe();
-    };
-  }, [loadProducts]);
 
   const renderItem = ({ item }) => {
     return (
@@ -115,6 +114,7 @@ const ProductsOverviewScreen = (props) => {
         renderItem={renderItem}
         onRefresh={loadProducts}
         refreshing={isRefreshing}
+        shouldRasterizeIOS={true}
       />
     </View>
   );

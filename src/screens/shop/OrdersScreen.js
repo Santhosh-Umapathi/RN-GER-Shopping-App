@@ -2,13 +2,8 @@ import React, { useState, useEffect, useCallback } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
-  TouchableOpacity,
-  Button,
-  Image,
   FlatList,
-  Platform,
   ActivityIndicator,
 } from "react-native";
 import * as orderActions from "../../store/actions/orders";
@@ -94,8 +89,8 @@ export const screenOptions = (props) => {
 
 const styles = StyleSheet.create({
   containerView: {
-    backgroundColor: "#fff",
-    width: "100%",
+    backgroundColor: "white",
+    flex: 1,
   },
   text: {
     fontSize: 20,

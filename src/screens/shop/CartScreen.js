@@ -77,7 +77,7 @@ const CartScreen = (props) => {
           />
         )}
       </Card>
-      <View>
+      <View style={styles.items}>
         <Text style={styles.text}>Cart Items</Text>
         {items.length > 0 && (
           <FlatList
@@ -100,7 +100,7 @@ export const screenOptions = (props) => {
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: "#eee",
+    backgroundColor: "#fff",
   },
   summary: {
     flexDirection: "row",
@@ -109,6 +109,7 @@ const styles = StyleSheet.create({
     padding: 10,
     justifyContent: "space-between",
   },
+  items: { flex: 1 },
   text: {
     fontSize: 20,
     fontFamily: "open-sans",

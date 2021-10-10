@@ -26,12 +26,14 @@ const CartItem = (props) => {
 
 const styles = StyleSheet.create({
   containerView: {
-    padding: 15,
-    backgroundColor: "white",
+    paddingVertical: 15,
+    paddingHorizontal: 5,
+    backgroundColor: "#eee",
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,
     borderRadius: 5,
+    marginVertical: 10,
   },
   itemData: {
     flexDirection: "row",
@@ -45,6 +47,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 20,
     fontFamily: "open-sans-bold",
+    maxWidth: 120,
+    paddingLeft: 10,
   },
   amount: {
     fontSize: 20,

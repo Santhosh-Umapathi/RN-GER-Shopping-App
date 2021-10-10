@@ -16,11 +16,10 @@ import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../store/actions/cart";
 
 const ProductDetailScreen = (props) => {
-  const { navigation } = props;
+  const { route } = props;
 
-  const item = navigation.getParam("item");
+  const item = route?.params?.item;
 
-  const state = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
   return (
@@ -44,8 +43,8 @@ const ProductDetailScreen = (props) => {
 };
 
 export const screenOptions = (props) => {
-  const { navigation } = props;
-  const item = navigation.getParam("item");
+  const { route } = props;
+  const item = route?.params?.item;
 
   return {
     headerTitle: item.title,

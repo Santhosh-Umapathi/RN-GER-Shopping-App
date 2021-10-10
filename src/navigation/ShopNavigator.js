@@ -11,7 +11,7 @@ import {
 import Colors from "../constants/Colors";
 //Screens
 import ProductsOverviewScreen, {
-  productsOverviewScreenOptions,
+  screenOptions as productsOverviewScreenOptions,
 } from "../screens/shop/ProductsOverviewScreen";
 import ProductDetailScreen, {
   screenOptions as productDetailScreenOptions,
@@ -37,12 +37,11 @@ import * as authActions from "../store/actions/auth";
 
 const defaultNavigationOptions = {
   headerStyle: {
-    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "",
+    backgroundColor: Platform.OS === "android" ? Colors.primaryColor : "white",
   },
   headerTitleStyle: {
     fontFamily: "open-sans-bold",
   },
-  // headerShown: false,
   headerBackTitleStyle: { fontFamily: "open-sans" },
   headerTintColor: Platform.OS === "android" ? "white" : Colors.primaryColor,
 };
@@ -115,7 +114,7 @@ export const ShopDrawerNavigator = () => {
     <DrawerNavigator.Navigator
       screenOptions={{
         activeTintColor: Colors.primaryColor,
-        // headerShown: false,
+        headerShown: false,
       }}
       drawerContent={(props) => {
         return (

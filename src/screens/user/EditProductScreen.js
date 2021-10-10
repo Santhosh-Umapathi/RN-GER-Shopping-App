@@ -46,9 +46,10 @@ const formReducer = (state, action) => {
 };
 
 const EditProductScreen = (props) => {
-  const { navigation } = props;
-  const item = navigation.getParam("item");
+  const { navigation, route } = props;
   const dispatch = useDispatch();
+
+  const item = route?.params?.item;
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState();
@@ -109,7 +110,14 @@ const EditProductScreen = (props) => {
   }, [formState]);
 
   useEffect(() => {
-    navigation.setParams({ submit: submitHandler });
+    navigation.setOptions({
+      headerRight: () => (
+        <HeaderButton
+          iconName={item ? "ios-save" : "ios-checkmark"}
+          onPress={submitHandler}
+        />
+      ),
+    });
   }, [submitHandler]);
 
   const inputChangeHandler = useCallback(
@@ -138,7 +146,7 @@ const EditProductScreen = (props) => {
 
   return (
     <KeyboardAvoidingView
-      style={{ flex: 1 }}
+      style={{ flex: 1, backgroundColor: "white" }}
       keyboardVerticalOffset={100}
       behavior="height"
     >
@@ -207,18 +215,16 @@ const EditProductScreen = (props) => {
 };
 
 export const screenOptions = (props) => {
-  const { navigation } = props;
-  const title = navigation.getParam("title");
-  const item = navigation.getParam("item");
-  const submit = navigation.getParam("submit");
+  const { route } = props;
+  const title = route?.params?.title;
 
   return {
-    headerRight: () => (
-      <HeaderButton
-        iconName={item ? "ios-save" : "ios-checkmark"}
-        onPress={submit}
-      />
-    ),
+    // headerRight: () => (
+    //   <HeaderButton
+    //     iconName={item ? "ios-save" : "ios-checkmark"}
+    //     onPress={submit}
+    //   />
+    // ),
     headerTitle: title,
   };
 };
