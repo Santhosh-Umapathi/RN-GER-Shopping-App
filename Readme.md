@@ -25,5 +25,7 @@ Features included inside the project
 - Linear Gradient
 - Moment
 - Redux, Redux Thunk, Dev Tools
+- React Navigation v6
+- Expo Scripts
 
 ###### - App City @2021

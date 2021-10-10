@@ -46,9 +46,9 @@ const SplashScreen = (props) => {
         }}
         style={{
           width: "60%",
-          height: "30%",
+          height: "40%",
           marginLeft: -40,
-          marginBottom: 10,
+          marginVertical: 10,
         }}
         resizeMode="cover"
       />

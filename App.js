@@ -26,13 +26,6 @@ const fetchFonts = () => {
 
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
-  const [showSplash, setShowSplash] = useState(true);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShowSplash(false);
-    }, 2000);
-  }, []);
 
   const rootReducer = combineReducers({
     products: productReducers,
@@ -58,7 +51,7 @@ export default function App() {
 
   return (
     <Provider store={store}>
-      {showSplash ? <SplashScreen /> : <AppNavigator />}
+      <AppNavigator />
     </Provider>
   );
 }

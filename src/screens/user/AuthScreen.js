@@ -124,7 +124,7 @@ const AuthScreen = (props) => {
       style={{ flex: 1 }}
     >
       <LinearGradient
-        colors={[Colors.accentColor, Colors.primaryColor]}
+        colors={[Colors.accentColor, Colors.primaryColor, "#eee", "#fff"]}
         style={styles.gradient}
       >
         <Card style={styles.card}>
