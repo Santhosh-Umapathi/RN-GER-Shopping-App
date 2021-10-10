@@ -13,10 +13,8 @@ const SplashScreen = (props) => {
 
     //No user data saved before
     if (!userData) {
-      setTimeout(() => {
-        navigation.navigate("Auth");
-        return;
-      }, 2000);
+      dispatch(authActions.didTryAutoLogin());
+      return;
     }
 
     //Token expiry check
@@ -25,23 +23,19 @@ const SplashScreen = (props) => {
     const expirationDate = new Date(expiryDate);
 
     if (expirationDate <= new Date() || !token || !userId) {
-      setTimeout(() => {
-        navigation.navigate("Auth");
-        return;
-      }, 2000);
+      dispatch(authActions.didTryAutoLogin());
+      return;
     }
 
     //Remaining time for auto logout
     const expTime = expirationDate.getTime() - new Date().getTime();
-
-    setTimeout(() => {
-      navigation.navigate("Shop");
-      dispatch(authActions.authenticate(userId, token, expTime));
-    }, 2000);
+    dispatch(authActions.authenticate(userId, token, expTime));
   };
 
   useEffect(() => {
-    tryLogin();
+    setTimeout(() => {
+      tryLogin();
+    }, 2000);
   }, []);
 
   return (

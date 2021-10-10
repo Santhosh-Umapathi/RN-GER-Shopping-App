@@ -6,8 +6,13 @@ export const SIGNUP = "SIGNUP";
 export const LOGIN = "LOGIN";
 export const AUTHENTICATE = "AUTHENTICATE";
 export const LOGOUT = "LOGOUT";
+export const DID_TRY_AUTO_LOGIN = "DID_TRY_AUTO_LOGIN";
 
 let isTimerInitialized;
+
+export const didTryAutoLogin = () => {
+  return { type: DID_TRY_AUTO_LOGIN };
+};
 
 export const authenticate = (userId, token, expTime) => {
   return (dispatch) => {

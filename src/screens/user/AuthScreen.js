@@ -88,7 +88,7 @@ const AuthScreen = (props) => {
           )
         );
       }
-      navigation.navigate("Shop");
+      // naviga tion.navigate("Shop");
     } catch (error) {
       setIsError(error.message);
       setIsLoading(false);
@@ -174,7 +174,7 @@ const AuthScreen = (props) => {
   );
 };
 
-AuthScreen.navigationOptions = {
+export const screenOptions = {
   headerTitle: "Authenticate",
 };
 

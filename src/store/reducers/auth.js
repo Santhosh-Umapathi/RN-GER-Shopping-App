@@ -1,8 +1,15 @@
-import { AUTHENTICATE, LOGIN, LOGOUT, SIGNUP } from "../actions/auth";
+import {
+  AUTHENTICATE,
+  DID_TRY_AUTO_LOGIN,
+  LOGIN,
+  LOGOUT,
+  SIGNUP,
+} from "../actions/auth";
 
 const initialState = {
   token: null,
   userId: null,
+  didTryAutoLogin: false,
 };
 
 export default (state = initialState, action) => {
@@ -32,6 +39,7 @@ export default (state = initialState, action) => {
         ...state,
         token: authPayload.token,
         userId: authPayload.userId,
+        didTryAutoLogin: true,
       };
 
     case LOGOUT:
@@ -39,6 +47,13 @@ export default (state = initialState, action) => {
         ...state,
         token: null,
         userId: null,
+        didTryAutoLogin: true,
+      };
+
+    case DID_TRY_AUTO_LOGIN:
+      return {
+        ...state,
+        didTryAutoLogin: true,
       };
 
     default:
