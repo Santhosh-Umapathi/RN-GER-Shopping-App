@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
   containerView: {
     paddingVertical: 15,
     paddingHorizontal: 5,
-    backgroundColor: "#eee",
+    backgroundColor: "#fff",
     flexDirection: "row",
     justifyContent: "space-between",
     marginHorizontal: 20,

@@ -100,7 +100,7 @@ export const screenOptions = (props) => {
 const styles = StyleSheet.create({
   containerView: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#eee",
   },
   summary: {
     flexDirection: "row",
