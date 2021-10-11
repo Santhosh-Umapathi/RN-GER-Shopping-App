@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import * as Font from "expo-font";
+import * as Notifications from "expo-notifications";
 import AppLoading from "expo-app-loading";
 //Redux
 import { Provider } from "react-redux";
@@ -13,8 +14,17 @@ import ordersReducers from "./src/store/reducers/orders";
 import authReducers from "./src/store/reducers/auth";
 //Navigation
 import AppNavigator from "./src/navigation/AppNavigator";
-//Screens
-import SplashScreen from "./SplashScreen";
+
+//Foreground - Local Notification trigger
+Notifications.setNotificationHandler({
+  handleNotification: async () => {
+    return {
+      shouldShowAlert: true,
+      shouldPlaySound: true,
+      shouldSetBadge: true,
+    };
+  },
+});
 
 //Loading fonts
 const fetchFonts = () => {
@@ -38,6 +48,25 @@ export default function App() {
     rootReducer,
     composeWithDevTools(applyMiddleware(ReduxThunk))
   );
+
+  useEffect(() => {
+    //When notification arrived on foreground
+    const foregroundSubscription =
+      Notifications.addNotificationReceivedListener((notification) => {
+        console.log("🚀 --- foregroundSubscription --- ", notification);
+      });
+
+    //When notification arrived on background and tapped
+    const backgroundSubscription =
+      Notifications.addNotificationResponseReceivedListener((response) => {
+        console.log("🚀 --- backgroundSubscription", response);
+      });
+
+    return () => {
+      foregroundSubscription.remove();
+      backgroundSubscription.remove();
+    };
+  }, []);
 
   if (!fontLoaded) {
     return (

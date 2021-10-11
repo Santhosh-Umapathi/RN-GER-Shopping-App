@@ -27,7 +27,8 @@ export default (state = initialState, action) => {
       };
 
     case CREATE_PRODUCT:
-      const { id, title, description, image, price, ownerId } = action.payload;
+      const { id, title, description, image, price, ownerId, ownerPushToken } =
+        action.payload;
 
       const createdProduct = new Product(
         id,
@@ -35,7 +36,8 @@ export default (state = initialState, action) => {
         title,
         image,
         description,
-        price
+        price,
+        ownerPushToken
       );
 
       return {
@@ -50,6 +52,7 @@ export default (state = initialState, action) => {
         title: uTitle,
         description: uDescription,
         image: uImage,
+        ownerPushToken: uOwnerPushToken,
       } = action.payload;
 
       const index = state.userProducts.findIndex((item) => item.id === uId);
@@ -59,7 +62,8 @@ export default (state = initialState, action) => {
         uTitle,
         uImage,
         uDescription,
-        state.userProducts[index].price
+        state.userProducts[index].price,
+        uOwnerPushToken
       );
 
       const updatedUserProduct = [...state.userProducts];
@@ -74,7 +78,8 @@ export default (state = initialState, action) => {
         uTitle,
         uImage,
         uDescription,
-        state.availableProducts[indexA].price
+        state.availableProducts[indexA].price,
+        uOwnerPushToken
       );
 
       const updatedvailableProduct = [...state.availableProducts];
@@ -88,8 +93,7 @@ export default (state = initialState, action) => {
 
     case SET_PRODUCT:
       const { loadedProducts, userProducts } = action.payload;
-      console.log("🚀 --- userProducts", userProducts);
-      console.log("🚀 --- loadedProducts", loadedProducts);
+
       return {
         ...state,
         userProducts: userProducts,

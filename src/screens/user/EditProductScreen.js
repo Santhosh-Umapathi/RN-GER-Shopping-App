@@ -50,6 +50,7 @@ const EditProductScreen = (props) => {
   const dispatch = useDispatch();
 
   const item = route?.params?.item;
+  console.log("🚀 --- EditProductScreen --- item", item);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState();
@@ -88,7 +89,8 @@ const EditProductScreen = (props) => {
             item.id,
             formState.inputValues.title,
             formState.inputValues.description,
-            formState.inputValues.image
+            formState.inputValues.image,
+            item.ownerPushToken
           )
         );
       } else {

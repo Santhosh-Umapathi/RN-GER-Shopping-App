@@ -1,27 +1,23 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState } from "react";
 import {
   View,
   Text,
-  TextInput,
   StyleSheet,
-  TouchableOpacity,
   Button,
-  Image,
   FlatList,
-  Platform,
   ActivityIndicator,
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+//Card
 import Colors from "../../constants/Colors";
+//Components
 import CartItem from "../../components/shop/CartItem";
 import Card from "../../components/UI/Card";
-
+//Redux
+import { useDispatch, useSelector } from "react-redux";
 import * as cartActions from "../../store/actions/cart";
 import * as orderActions from "../../store/actions/orders";
 
-const CartScreen = (props) => {
-  const { navigation } = props;
-
+const CartScreen = () => {
   const state = useSelector((state) => state.cart);
   const dispatch = useDispatch();
 
@@ -36,6 +32,7 @@ const CartScreen = (props) => {
         productPrice: state.items[key].productPrice,
         quantity: state.items[key].quantity,
         sum: state.items[key].sum,
+        ownerPushToken: state.items[key].ownerPushToken,
       });
   }
 
@@ -91,10 +88,8 @@ const CartScreen = (props) => {
   );
 };
 
-export const screenOptions = (props) => {
-  return {
-    headerTitle: "Your Cart",
-  };
+export const screenOptions = {
+  headerTitle: "Your Cart",
 };
 
 const styles = StyleSheet.create({

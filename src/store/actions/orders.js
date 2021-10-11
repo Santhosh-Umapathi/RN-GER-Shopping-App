@@ -1,5 +1,6 @@
 //Constants
 import Firebase from "../../constants/Firebase";
+import useSendPushNotifications from "../../hooks/useSendPushNotifications";
 //Model
 import Order from "../../model/orders";
 
@@ -36,6 +37,15 @@ export const addToCart = (cartItems, totalAmount) => {
     dispatch({
       type: ADD_ORDER,
       payload: { id: resData.name, cartItems, totalAmount, date },
+    });
+
+    //Send Notifications to owners
+    cartItems.forEach(async (element) => {
+      await useSendPushNotifications({
+        title: `New Order: ${element.productTitle}`,
+        body: `${element.productTitle} with quantity ${element.quantity} ordered`,
+        pushToken: element.ownerPushToken,
+      });
     });
   };
 };

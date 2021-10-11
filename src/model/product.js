@@ -5,7 +5,8 @@ export default class Product {
     title = "",
     imageUrl = "",
     description = "",
-    price = ""
+    price = "",
+    ownerPushToken = ""
   ) {
     this.id = id;
     this.ownerId = ownerId;
@@ -13,5 +14,6 @@ export default class Product {
     this.imageUrl = imageUrl;
     this.description = description;
     this.price = price;
+    this.ownerPushToken = ownerPushToken;
   }
 }

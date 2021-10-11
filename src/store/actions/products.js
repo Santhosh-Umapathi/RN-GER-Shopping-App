@@ -1,3 +1,5 @@
+import { Platform } from "react-native";
+import * as Notifications from "expo-notifications";
 //Constants
 import Firebase from "../../constants/Firebase";
 //Model
@@ -11,6 +13,27 @@ export const SET_PRODUCT = "SET_PRODUCT";
 //Middleware
 export const createProduct = (title, description, image, price) => {
   return async (dispatch, getState) => {
+    let pushToken = null;
+    let permission;
+    //Check if already have permission
+    permission = await Notifications.getPermissionsAsync();
+    console.log(`[${Platform.OS}] Check Permission:`, permission.status);
+
+    //Request for permission
+    if (permission.status !== "granted") {
+      permission = await Notifications.requestPermissionsAsync();
+      console.log(`[${Platform.OS}] Request Permission:`, permission.status);
+    }
+
+    //Now actions based on permission
+    if (permission.status !== "granted") {
+      Alert.alert("Permissions required for notifications");
+    } else {
+      // Only call if permission is granted
+      pushToken = (await Notifications.getExpoPushTokenAsync()).data;
+      console.log(`[${Platform.OS}] Push Token:`, pushToken);
+    }
+
     const token = getState().auth.token;
     const userId = getState().auth.userId;
 
@@ -27,6 +50,7 @@ export const createProduct = (title, description, image, price) => {
           image,
           price,
           ownerId: userId,
+          ownerPushToken: pushToken,
         }),
       }
     );
@@ -42,6 +66,7 @@ export const createProduct = (title, description, image, price) => {
         image,
         price,
         ownerId: userId,
+        ownerPushToken: pushToken,
       },
     });
   };
@@ -68,7 +93,8 @@ export const setProduct = () => {
             resData[key].title,
             resData[key].image,
             resData[key].description,
-            +resData[key].price
+            +resData[key].price,
+            resData[key].ownerPushToken
           )
         );
       }
@@ -94,7 +120,13 @@ export const setProduct = () => {
   };
 };
 
-export const updateProduct = (id, title, description, image) => {
+export const updateProduct = (
+  id,
+  title,
+  description,
+  image,
+  ownerPushToken
+) => {
   return async (dispatch, getState) => {
     const token = getState().auth.token;
 
@@ -110,6 +142,7 @@ export const updateProduct = (id, title, description, image) => {
             title,
             description,
             image,
+            ownerPushToken,
           }),
         }
       );
@@ -120,7 +153,7 @@ export const updateProduct = (id, title, description, image) => {
 
       dispatch({
         type: UPDATE_PRODUCT,
-        payload: { id, title, description, image },
+        payload: { id, title, description, image, ownerPushToken },
       });
     } catch (error) {
       throw error;
