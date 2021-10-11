@@ -27,5 +27,6 @@ Features included inside the project
 - Redux, Redux Thunk, Dev Tools
 - React Navigation v6
 - Expo Scripts
+- Expo Push Notifications
 
 ###### - App City @2021
