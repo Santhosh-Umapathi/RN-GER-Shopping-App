@@ -50,7 +50,7 @@ const EditProductScreen = (props) => {
   const dispatch = useDispatch();
 
   const item = route?.params?.item;
-  console.log("🚀 --- EditProductScreen --- item", item);
+  // console.log("🚀 --- EditProductScreen --- item", item);
 
   const [isLoading, setIsLoading] = useState(false);
   const [isError, setIsError] = useState();

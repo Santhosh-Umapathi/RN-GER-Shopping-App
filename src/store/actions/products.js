@@ -17,12 +17,12 @@ export const createProduct = (title, description, image, price) => {
     let permission;
     //Check if already have permission
     permission = await Notifications.getPermissionsAsync();
-    console.log(`[${Platform.OS}] Check Permission:`, permission.status);
+    // console.log(`[${Platform.OS}] Check Permission:`, permission.status);
 
     //Request for permission
     if (permission.status !== "granted") {
       permission = await Notifications.requestPermissionsAsync();
-      console.log(`[${Platform.OS}] Request Permission:`, permission.status);
+      // console.log(`[${Platform.OS}] Request Permission:`, permission.status);
     }
 
     //Now actions based on permission
@@ -31,7 +31,7 @@ export const createProduct = (title, description, image, price) => {
     } else {
       // Only call if permission is granted
       pushToken = (await Notifications.getExpoPushTokenAsync()).data;
-      console.log(`[${Platform.OS}] Push Token:`, pushToken);
+      // console.log(`[${Platform.OS}] Push Token:`, pushToken);
     }
 
     const token = getState().auth.token;

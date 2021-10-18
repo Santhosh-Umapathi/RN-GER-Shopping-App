@@ -14,7 +14,8 @@ import ordersReducers from "./src/store/reducers/orders";
 import authReducers from "./src/store/reducers/auth";
 //Navigation
 import AppNavigator from "./src/navigation/AppNavigator";
-
+//ENV's
+import { EXPO_USERNAME } from "@env";
 //Foreground - Local Notification trigger
 Notifications.setNotificationHandler({
   handleNotification: async () => {
@@ -37,6 +38,8 @@ const fetchFonts = () => {
 export default function App() {
   const [fontLoaded, setFontLoaded] = useState(false);
 
+  console.log("DOT ENV =>", EXPO_USERNAME);
+
   const rootReducer = combineReducers({
     products: productReducers,
     cart: cartReducers,
@@ -53,13 +56,13 @@ export default function App() {
     //When notification arrived on foreground
     const foregroundSubscription =
       Notifications.addNotificationReceivedListener((notification) => {
-        console.log("🚀 --- foregroundSubscription --- ", notification);
+        // console.log("🚀 --- foregroundSubscription --- ", notification);
       });
 
     //When notification arrived on background and tapped
     const backgroundSubscription =
       Notifications.addNotificationResponseReceivedListener((response) => {
-        console.log("🚀 --- backgroundSubscription", response);
+        // console.log("🚀 --- backgroundSubscription", response);
       });
 
     return () => {

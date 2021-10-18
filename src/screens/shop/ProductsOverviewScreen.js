@@ -26,10 +26,10 @@ const ProductsOverviewScreen = (props) => {
   const [isRefreshing, setIsRefreshing] = useState(false);
 
   const state = useSelector((state) => state.products);
-  console.log(
-    "🚀 --- ProductsOverviewScreen --- state",
-    state.availableProducts
-  );
+  // console.log(
+  //   "🚀 --- ProductsOverviewScreen --- state",
+  //   state.availableProducts
+  // );
   const dispatch = useDispatch();
 
   useFocusEffect(

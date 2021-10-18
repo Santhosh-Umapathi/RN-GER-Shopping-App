@@ -2,6 +2,8 @@
   "expo": {
     "name": "Shopping",
     "slug": "shopping-app",
+    "owner": "app-city-team",
+    "privacy": "public",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,6 +24,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
       },
+      "package": "com.appcity.shopping_app",
       "useNextNotificationsApi": true
     },
     "web": {
