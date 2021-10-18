@@ -28,5 +28,6 @@ Features included inside the project
 - React Navigation v6
 - Expo Scripts
 - Expo Push Notifications
+- Dot ENV
 
 ###### - App City @2021
