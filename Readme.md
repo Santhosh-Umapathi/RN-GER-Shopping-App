@@ -29,5 +29,6 @@ Features included inside the project
 - Expo Scripts
 - Expo Push Notifications
 - Dot ENV
+- Turtle CLI added
 
 ###### - App City @2021
