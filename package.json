@@ -35,7 +35,8 @@
     "upload:ios": "expo upload:ios",
     "upload:android:dev": "expo upload:android --release-channel development",
     "upload:android:stage": "expo upload:android --release-channel staging",
-    "upload:android": "expo upload:android"
+    "upload:android": "expo upload:android",
+    "turtle:build:android": "turtle build:android --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist/android-index.json --type apk -d $(pwd)/build/android/"
   },
   "dependencies": {
     "@expo/vector-icons": "^12.0.0",
