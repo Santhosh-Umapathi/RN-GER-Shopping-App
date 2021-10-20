@@ -1,5 +1,5 @@
 export default Colors = {
-  primaryColor: "#f23",
+  primaryColor: "#6D6DFA",
   accentColor: "#414B6D",
-  splash: "#333",
+  splash: "#fff",
 };
