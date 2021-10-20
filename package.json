@@ -36,7 +36,7 @@
     "upload:android:dev": "expo upload:android --release-channel development",
     "upload:android:stage": "expo upload:android --release-channel staging",
     "upload:android": "expo upload:android",
-    "export": "expo export --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist && rm -rf ~/.turtle/workingdir",
+    "export": "expo export --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist && rm -rf ~/.turtle/workingdir  && open https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist/android-index.json",
     "turtle:ba:apk:dev": "turtle build:android --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist/android-index.json --type apk --release-channel development -d $(pwd)/build/android/",
     "turtle:ba:apk:stage": "turtle build:android --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist/android-index.json --type apk --release-channel staging -d $(pwd)/build/android/",
     "turtle:ba:apk": "turtle build:android --public-url https://santhosh-umapathi.github.io/RN-GER-Shopping-App/dist/android-index.json --type apk -d $(pwd)/build/android/",
